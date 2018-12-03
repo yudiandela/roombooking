@@ -17,10 +17,8 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        $data = Room::with('area')->get();
-        $facilities = Facility::orderBy('name')->get();
-
-        return view('rooms.index', compact('data', 'facilities'));
+        $data = Room::with(['area', 'facilities'])->get();
+        return view('rooms.index', compact('data'));
     }
 
     public function create()
