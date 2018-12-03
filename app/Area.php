@@ -8,13 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Area extends Model
 {
     use SoftDeletes;
-    public function rooms(){
+    public function rooms()
+    {
         return $this->hasMany(Room::class);
     }
-     public function reservation(){
+
+    public function reservation()
+    {
         return $this->hasMany(Reservation::class);
     }
-    public function unit(){
+
+    public function unit()
+    {
         return $this->belongsTo(Unit::class)->withTrashed();
     }
 
@@ -25,5 +30,4 @@ class Area extends Model
         'unit_id',
     ];
     protected $dates = ['deleted_at'];
-
 }

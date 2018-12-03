@@ -5,16 +5,23 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+
 class Room extends Model
 {
     protected $table = 'rooms';
+
     use SoftDeletes;
-    public function area(){
+
+    public function area()
+    {
         return $this->belongsTo(Area::class)->withTrashed();
     }
-    public function facility(){
-        return $this->hasMany(Facility::class);
+
+    public function facility()
+    {
+        return $this->belongsTo(Facility::class);
     }
+
     protected $fillable =[
         'facility_id',
         'area_id',
@@ -27,5 +34,4 @@ class Room extends Model
         'photo',
         'is_active',
     ];
-
 }

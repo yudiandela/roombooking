@@ -47,7 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                        
+
                             @foreach($data as $datas=>$d)
                                 <tr>
                                     <td>{{$d->area->name}}</td>
@@ -59,7 +59,8 @@
                                     <td>{{$d->contact_email}}</td>
                                     <td>{{$d->contact_hp}}</td>
                                     <td>
-                                        {{$d->facility_id}}
+                                        {{-- {{ $d->facility['name'] }} --}}
+                                        {{$d->facility->name}}
                                     {{-- @foreach($facilities as $facility)
                                         @if($data[$datas]->hasFacility($facility['name']))
                                         <ul>

@@ -12,46 +12,37 @@ use Zizaco\Entrust\Entrust;
 use File;
 use Storage;
 use App\Facility;
+
 class RoomsController extends Controller
 {
-    function index()
+    public function index()
     {
-        // $data = Room::join('facilities', 'rooms.facility_id', '=', 'facilities.id')
-        //     ->get();
-        // dd($data);
-        // return view('rooms.index', compact('data'));
-        // $data = Room::with(['area', 'facility'])->get();
-        // dd($data);
+        $data = Room::with('area')->get();
 
         // foreach ($data as $d) {
-        //     dd($d->facility_id);
+        //     $facilities = Facility::where('id', $d->facility_id)->get();
         // }
-        $facilities = [];
-        $data = Room::with('area')->get();
-        foreach ($data as $d) {
-            $facilities= Facility::find($d->facility_id)/* ->orderBy('name') */->get();
-        }
 
-        dd($facilities);
-        
+        $facilities = Facility::orderBy('name')->get();
+
         return view('rooms.index', compact('data', 'facilities'));
     }
 
-    function create()
+    public function create()
     {
         $facility=facility::get();
         return view('rooms.add', compact('facility'));
     }
 
-    function add()
+    public function add()
     {
         $select = Area::orderBy('name')->pluck('name', 'id');
-        $facilities = Facility::orderBy('name')->pluck('name','id');
+        $facilities = Facility::orderBy('name')->pluck('name', 'id');
         $select = [null => 'Pilih Area'] + $select->toArray();
-        return view('rooms.add', compact('select','facilities'));
+        return view('rooms.add', compact('select', 'facilities'));
     }
 
-    function delete($id)
+    public function delete($id)
     {
         $room = Room::findOrFail($id);
         $room->delete();
@@ -59,7 +50,7 @@ class RoomsController extends Controller
         return redirect(route('rooms.index'))->with('alertdel', 'Sukses menghapus Data Ruangan');
     }
 
-    function store(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'area_id' => 'required',
@@ -77,8 +68,8 @@ class RoomsController extends Controller
         ]);
 
         $data = Room::create($request->except('photo'));
-        
-        if ($request->hasFile('photo')){
+
+        if ($request->hasFile('photo')) {
             Storage::delete('img/');
             $uploaded_photo = $request->file('photo');
 
@@ -87,26 +78,25 @@ class RoomsController extends Controller
             $filename = md5(time()) . '.' . $extension;
 
             $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
-            $uploaded_photo->move($destinationPath,$filename);
+            $uploaded_photo->move($destinationPath, $filename);
 
             $data->photo = $filename;
             $data->save();
             $data = $request->toArray();
-    //    $role = Role::create($data);
+            //    $role = Role::create($data);
     //    $role->permissions()->sync($request->permission);
-      
         }
         return redirect(route('rooms.index'))->with('alert', 'Sukses Menambahkan Data Ruangan Baru');
     }
 
-    function edit($id)
+    public function edit($id)
     {
         $data = Room::find($id);
         $select = Area::orderBy('name')->pluck('name', 'id');
-        $allfacilities = Facility::orderBy('name')->pluck('name','id');
+        $allfacilities = Facility::orderBy('name')->pluck('name', 'id');
         $assignedfacilities = $data->facilities->pluck('id')->toArray();
-        return view('rooms.add', compact('data', 'select','allfacilities','assignedfacilities'));
-    } 
+        return view('rooms.add', compact('data', 'select', 'allfacilities', 'assignedfacilities'));
+    }
 
     public function update(Request $request, $id)
     {
@@ -121,8 +111,8 @@ class RoomsController extends Controller
         $data->is_active     = $request->is_active;
         $data->facility_id   = $request->facility_id;
 
-        if ($request->hasFile('photo')){            
-            $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';            
+        if ($request->hasFile('photo')) {
+            $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
             File::delete($destinationPath . '/' . $data->photo);
 
             $uploaded_photo = $request->file('photo');
@@ -131,15 +121,16 @@ class RoomsController extends Controller
             $uploaded_photo->move($destinationPath, $filename);
             $data->photo = $filename;
         }
-       
-        if(empty($request['is_active']))
+
+        if (empty($request['is_active'])) {
             $request['is_active'] = 0;
+        }
         $data->facilities()->sync($request->facility);
         $data->save();
 
         return redirect(route('rooms.index'))->with('alertedit', 'Sukses Edit Data Area');
     }
-    
+
 
     public function getByAreaId()
     {
