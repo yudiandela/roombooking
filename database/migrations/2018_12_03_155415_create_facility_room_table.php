@@ -16,6 +16,9 @@ class CreateFacilityRoomTable extends Migration
         Schema::create('facility_room', function (Blueprint $table) {
             $table->unsignedInteger('room_id');
             $table->unsignedInteger('facility_id');
+
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+            $table->foreign('facility_id')->references('id')->on('facilities')->onDelete('cascade');
         });
     }
 
