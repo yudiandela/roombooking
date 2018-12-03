@@ -57,7 +57,7 @@ INSERT INTO `facilities` (`id`, `name`, `deleted_at`) VALUES
 (4, 'proyektor', NULL),
 (6, 'whiteboard', NULL);
 
-INSERT INTO `rooms` (`id`, `area_id`, `facility_id`, `name`, `description`, `capacity`, `contact_name`, `contact_email`, `contact_hp`, `is_active`, `photo`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `rooms` (`id`, `area_id`, `name`, `description`, `capacity`, `contact_name`, `contact_email`, `contact_hp`, `is_active`, `photo`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 63, 'cobham', 'interior', 10, 'yopi', 'yopi@gmail.com', '08536372', NULL, '', '2018-11-29 08:00:00', '2018-11-29 09:00:00', '2018-11-29 11:00:00'),
 (110, 63, 'etihad', '<p>tes</p>', 12, 'yopi', 'yopi@gmail.com', '08566363', 1, '76fe2ff9cadea5f54808db01c002128f.jpg', '2018-11-29 10:48:38', '2018-11-29 10:48:41', NULL),
 (111, 66, 'Test Ruangan', '<p>Test Description</p>', 12, 'Test Nama', 'email@email.com', '0865445554', 1, '07be52379493b3b2802d15522cd99011.png', '2018-12-02 14:26:23', '2018-12-02 14:26:26', NULL);
