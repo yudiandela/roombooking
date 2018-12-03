@@ -1,0 +1,14 @@
+#kiri
+{
+width:50%;
+height:500px;
+background-color:rgb(255, 255, 255);
+float:left;
+}
+#kanan
+{
+width:50%;
+height:500px;
+background-color:rgb(255, 255, 255);
+float:right;
+}
