@@ -17,9 +17,9 @@ class Room extends Model
         return $this->belongsTo(Area::class)->withTrashed();
     }
 
-    public function facility()
+    public function facilities()
     {
-        return $this->belongsTo(Facility::class);
+        return $this->belongsToMany(Facility::class);
     }
 
     protected $fillable =[

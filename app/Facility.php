@@ -13,9 +13,9 @@ class Facility extends Model
 
     public $timestamps = false;
 
-    public function room()
+    public function rooms()
     {
-        return $this->hasMany(Room::class);
+        return $this->belongsToMany(Room::class);
     }
 
     protected $fillable = [

@@ -59,17 +59,9 @@
                                     <td>{{$d->contact_email}}</td>
                                     <td>{{$d->contact_hp}}</td>
                                     <td>
-                                        {{-- {{ $d->facility['name'] }} --}}
-                                        {{$d->facility->name}}
-                                    {{-- @foreach($facilities as $facility)
-                                        @if($data[$datas]->hasFacility($facility['name']))
-                                        <ul>
-                                            <li>
-                                            {{ $facility['name'] }}
-                                            </li>
-                                        </ul>
-                                        @endif
-                                    @endforeach --}}
+                                        @foreach ($d->facilities as $facility)
+                                            {{ $facility->name }}
+                                        @endforeach
                                     <td>
                                     @if(empty($d->photo))
                                         <img src="https://via.placeholder.com/100" style="border-radius:50%"/>
