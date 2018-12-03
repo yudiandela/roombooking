@@ -67,5 +67,5 @@ INSERT INTO `facility_room` (`room_id`, `facility_id`) VALUES
 (1, 1),
 (110, 4),
 (111, 3),
-(110, 4),
+(110, 3),
 (111, 6);
