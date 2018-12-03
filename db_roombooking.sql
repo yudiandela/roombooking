@@ -212,10 +212,6 @@ CREATE TABLE `role_user` (
 --
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
-(78, 1),
-(79, 1),
-(80, 5),
-(81, 2),
 (82, 1);
 
 -- --------------------------------------------------------
@@ -248,8 +244,8 @@ CREATE TABLE `rooms` (
 INSERT INTO `rooms` (`id`, `area_id`, `facility_id`, `name`, `description`, `capacity`, `contact_name`, `contact_email`, `contact_hp`, `is_active`, `photo`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 63, 1, 'cobham', 'interior', 10, 'yopi', 'yopi@gmail.com', '08536372', NULL, '', '2018-11-29 08:00:00', '2018-11-29 09:00:00', '2018-11-29 11:00:00'),
 (110, 63, 2, 'etihad', '<p>tes</p>', 12, 'yopi', 'yopi@gmail.com', '08566363', 1, '76fe2ff9cadea5f54808db01c002128f.jpg', '2018-11-29 10:48:38', '2018-11-29 10:48:41', NULL),
-(111, 66, NULL, 'Test Ruangan', '<p>Test Description Test Description</p>', 12, 'Test Nama', 'email@email.com', '0865445554', 1, '07be52379493b3b2802d15522cd99011.png', '2018-12-02 14:26:23', '2018-12-02 14:26:26', NULL),
-(112, 63, NULL, 'old trafford', '<p>bismilah</p>', 12, 'yopi', 'yopi@gmail.com', '089645555', 1, 'b731e4d7ad8d9a7f3fa664a0c771d946.jpg', '2018-12-02 14:30:54', '2018-12-02 14:30:57', NULL);
+(111, 66, 3, 'Test Ruangan', '<p>Test Description Test Description</p>', 12, 'Test Nama', 'email@email.com', '0865445554', 1, '07be52379493b3b2802d15522cd99011.png', '2018-12-02 14:26:23', '2018-12-02 14:26:26', NULL),
+(112, 63, 5, 'old trafford', '<p>bismilah</p>', 12, 'yopi', 'yopi@gmail.com', '089645555', 1, 'b731e4d7ad8d9a7f3fa664a0c771d946.jpg', '2018-12-02 14:30:54', '2018-12-02 14:30:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -303,10 +299,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `unit_id`, `name`, `photo`, `email`, `password`, `created_at`, `updated_at`, `remember_token`, `deleted_at`) VALUES
-(78, 61, 'eva24', '', 'eva24@gmail.com', '$2y$12$.k5Mj5aZTmOER2FmBE97te0fZSDr6VZk2D34bF/4l8NKRLvZCWL5W', '2018-09-19 06:56:55', '2018-09-19 06:58:11', 'Ilp31hNgjBzqjMkK5tcAuZ1P9LyZ3dW5UyOuDjKLBuqjB0OKj7R8cMQnwzwp', '0000-00-00 00:00:00'),
-(79, 62, 'Eva May', '', 'evamay@gmail.com', '$2y$10$.G2VwF85TJ4wb6JOvYRdCOW1Ntncefco4W2rUUktYE4xkCAbkkHZK', '2018-09-20 02:28:24', '2018-09-20 02:28:24', '8znPTAzn09CbS75ORSlaAcKvFzMQ3uEPD1EnYbrVIiXWjgrWNMXrVwpEBDuJ', '0000-00-00 00:00:00'),
-(80, 61, 'Mayadila', '', 'mayadila24@gmail.com', '$2y$10$wFJui7..spxzJy/mw6VeYO97b14nflJ6tWgi3.UlTp7qoCWSQlvki', '2018-09-26 09:30:25', '2018-09-26 09:30:25', 'peqSLJJTmWN2FSfzSIqbVgTLkHNEisHU0yp32EuimBOXQrFtJKGTFdlvCs96', NULL),
-(81, 61, 'Rafa', '', 'rafa24@gmail.com', '$2y$10$QZKHjaYZ5b2g.ESu3rW1Uu/CnQ65IZAYOUNpQFUbazKR2tQS7mTJ.', '2018-09-26 09:32:49', '2018-09-26 09:32:49', 'GW56HaCxOLDlMdT4FIrRNGlFN1jfoUWrV535gc3w6mYcRme2HKntyIqlEzyi', NULL),
 (82, 62, 'haekal', '44b18a3af099983a0150a0419d6890e2.jpg', 'haekal2@gmail.com', '$2y$10$uT6/E4vSxsXLnVn3ukvkYOFHgDkVgL0doT/Rv0naQKb1rg8qe57YG', '2018-11-29 04:22:46', '2018-11-29 04:30:50', 'Fh8EC5uBFemsxaSGOi2xh8UEsunrXK4woagc5IoIUCW6NnCkX0NEgu7QPSoO', NULL);
 
 --
