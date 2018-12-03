@@ -61,6 +61,7 @@ class RoomsController extends Controller
         ]);
 
         $data = Room::create($request->except('photo'));
+        $data->facilities()->attach($request->facility);
 
         if ($request->hasFile('photo')) {
             Storage::delete('img/');
