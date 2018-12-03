@@ -23,13 +23,13 @@ class CreateRoomsTable extends Migration
             $table->string('contact_name', 255);
             $table->string('contact_email', 255);
             $table->string('contact_hp', 20);
-            $table->tinyInteger('is_active');
-            $table->string('photo', 150);
+            $table->tinyInteger('is_active')->nullable();
+            $table->string('photo', 150)->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
 
-            $table->foreign('facility_id')->references('id')->on('facilities')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('facility_id')->references('id')->on('facilities');
         });
     }
 
