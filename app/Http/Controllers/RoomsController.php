@@ -18,11 +18,6 @@ class RoomsController extends Controller
     public function index()
     {
         $data = Room::with('area')->get();
-
-        // foreach ($data as $d) {
-        //     $facilities = Facility::where('id', $d->facility_id)->get();
-        // }
-
         $facilities = Facility::orderBy('name')->get();
 
         return view('rooms.index', compact('data', 'facilities'));
