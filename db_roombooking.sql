@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Okt 2018 pada 05.17
+-- Waktu pembuatan: 03 Des 2018 pada 09.57
 -- Versi server: 10.1.34-MariaDB
 -- Versi PHP: 7.2.8
 
@@ -48,6 +48,29 @@ INSERT INTO `areas` (`id`, `name`, `description`, `created_at`, `updated_at`, `d
 (65, 'Area Lantai 10', 'Area Emas', '2018-09-19 07:02:16', '2018-09-19 07:53:50', NULL, 62),
 (66, 'Area Lantai 14', 'Area Palladium', '2018-09-19 07:03:44', '2018-09-19 07:42:14', NULL, 62),
 (67, 'Area Lantai 16', 'Area Platinum', '2018-09-19 07:04:04', '2018-09-19 07:42:39', NULL, 62);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `facilities`
+--
+
+CREATE TABLE `facilities` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `delete_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `facilities`
+--
+
+INSERT INTO `facilities` (`id`, `name`, `delete_at`) VALUES
+(1, 'meja', '2018-11-29 10:00:00'),
+(2, 'kursi', NULL),
+(3, 'monitor', NULL),
+(4, 'proyektor', NULL),
+(6, 'whiteboard', NULL);
 
 -- --------------------------------------------------------
 
@@ -149,16 +172,6 @@ CREATE TABLE `reservations` (
   `status` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `reservations`
---
-
-INSERT INTO `reservations` (`id`, `room_id`, `user_id`, `subject`, `description`, `start`, `end`, `type`, `contact_hp`, `contact_name`, `contact_email`, `manager_email`, `created_at`, `updated_at`, `unit_id`, `status`) VALUES
-(35, 102, 78, 'GI', 'GI', '2018-09-27 11:47:46', '2018-09-27 11:47:46', 'Eksternal', '08999', 'eva', 'GI@gmail.com', 'GI@gmail.com', '2018-09-27 04:48:18', '2018-09-27 04:48:18', 56, 'approved'),
-(36, 102, 78, 'abi', 'dghghh', '2018-09-27 22:15:39', '2018-09-27 22:15:39', 'Eksternal', NULL, 'eva24', 'nonalidia007@gmail.com', 'nonalidia007@gmail.com', '2018-09-27 15:16:02', '2018-09-27 15:16:02', 62, 'approved'),
-(37, 102, 78, 'WEBSITE', 'WEBSITE RCTI', '2018-09-27 22:17:38', '2018-09-27 22:17:38', 'Internal', '081234555667', 'EVAAA', 'EVAA@gmail.com', 'VAA@gmail.com', '2018-09-27 15:18:36', '2018-09-27 15:18:36', 55, 'approved'),
-(38, 102, 80, 'Meeting Bulanan', 'Bahas projek bulanan\r\nbahas projek live', '2018-09-28 10:05:59', '2018-09-28 12:05:59', 'Internal', '081234555667', 'Mirna', 'mirna@gm.com', 'didi@mnc.com', '2018-09-28 03:07:43', '2018-09-28 03:07:43', 54, 'approved');
-
 -- --------------------------------------------------------
 
 --
@@ -202,7 +215,8 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (78, 1),
 (79, 1),
 (80, 5),
-(81, 2);
+(81, 2),
+(82, 1);
 
 -- --------------------------------------------------------
 
@@ -213,6 +227,7 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
   `area_id` int(11) NOT NULL,
+  `facility_id` int(11) DEFAULT NULL,
   `name` varchar(125) DEFAULT NULL,
   `description` text,
   `capacity` int(11) DEFAULT NULL,
@@ -220,6 +235,7 @@ CREATE TABLE `rooms` (
   `contact_email` varchar(125) DEFAULT NULL,
   `contact_hp` varchar(20) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
+  `photo` varchar(150) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -229,19 +245,11 @@ CREATE TABLE `rooms` (
 -- Dumping data untuk tabel `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `area_id`, `name`, `description`, `capacity`, `contact_name`, `contact_email`, `contact_hp`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(96, 63, 'Ruang Anggrek', 'Ruangan Meeting Kecil', 5, 'Eva', 'eva@mncgroup.com', '081321300395', 1, '2018-09-19 07:06:34', '2018-09-19 07:06:34', NULL),
-(97, 63, 'Ruang Mawar', 'Ruang Meeting Sedang', 10, 'Eva May', 'evamay@mncgroup.com', '081321395300', 1, '2018-09-19 07:07:56', '2018-09-19 07:09:18', NULL),
-(98, 63, 'Ruang Melati', 'Ruang Meeting Besar', 15, 'Eva Mayadila', 'evamayadila@mncgroup.com', '081300321395', 0, '2018-09-19 07:11:35', '2018-09-19 07:19:13', NULL),
-(99, 64, 'Ruang Bouverly', 'Ruangan Meeting Kecil', 8, 'Rafa', 'rafa@mncgroup.com', '081234500987', 1, '2018-09-19 07:13:11', '2018-09-19 07:19:02', NULL),
-(100, 64, 'Ruangan Lily', 'Ruang Meeting Sedang', 16, 'Rafael', 'rafael@mncgroup.com', '081234555667', 1, '2018-09-19 07:14:10', '2018-09-19 07:14:10', NULL),
-(101, 64, 'Ruang Matahari', 'Ruang Meeting Besar', 24, 'Rafael Himawan', 'rafaelhimawan@mncgroup.com', '081234560981', 0, '2018-09-19 07:15:59', '2018-09-19 07:19:28', NULL),
-(102, 65, 'Ruang Anyelir', 'Ruang Meeting Kecil', 6, 'Aditya', 'aditya@mncgroup.com', '081234560981', 1, '2018-09-19 07:46:05', '2018-09-19 08:02:29', NULL),
-(103, 65, 'Ruang Aster', 'Ruang Meeting Sedang', 12, 'Aditya Bima', 'adityabima@mncgroup.com', '081234555611', 0, '2018-09-19 07:47:42', '2018-09-19 07:51:43', NULL),
-(104, 65, 'Ruang Begonia', 'Ruang Meeting Besar', 18, 'Aditya Bima Jonathan', 'ab.jonathan@mncgroup.com', '081234500900', 1, '2018-09-19 07:48:55', '2018-09-19 08:04:05', NULL),
-(105, 66, 'Ruang Freesia', 'Ruang Meeting Kecil', 10, 'Bima', 'bima@mncgroup.com', '08123452093', 1, '2018-09-19 07:56:02', '2018-09-19 07:56:02', NULL),
-(106, 66, 'Ruang Lavender', 'Ruang Meeting Sedang', 20, 'Jonathan', 'jonathan@mncgroup.com', '081234444787', 0, '2018-09-19 07:57:19', '2018-09-19 08:04:26', NULL),
-(107, 66, 'Ruang Eidelweis', 'Ruang Meeting Besar', 30, 'Jonathan Bima', 'jonathan.bima@mncgroup.com', '081234567890', 1, '2018-09-19 07:58:40', '2018-09-19 07:58:40', NULL);
+INSERT INTO `rooms` (`id`, `area_id`, `facility_id`, `name`, `description`, `capacity`, `contact_name`, `contact_email`, `contact_hp`, `is_active`, `photo`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 63, 1, 'cobham', 'interior', 10, 'yopi', 'yopi@gmail.com', '08536372', NULL, '', '2018-11-29 08:00:00', '2018-11-29 09:00:00', '2018-11-29 11:00:00'),
+(110, 63, 2, 'etihad', '<p>tes</p>', 12, 'yopi', 'yopi@gmail.com', '08566363', 1, '76fe2ff9cadea5f54808db01c002128f.jpg', '2018-11-29 10:48:38', '2018-11-29 10:48:41', NULL),
+(111, 66, NULL, 'Test Ruangan', '<p>Test Description Test Description</p>', 12, 'Test Nama', 'email@email.com', '0865445554', 1, '07be52379493b3b2802d15522cd99011.png', '2018-12-02 14:26:23', '2018-12-02 14:26:26', NULL),
+(112, 63, NULL, 'old trafford', '<p>bismilah</p>', 12, 'yopi', 'yopi@gmail.com', '089645555', 1, 'b731e4d7ad8d9a7f3fa664a0c771d946.jpg', '2018-12-02 14:30:54', '2018-12-02 14:30:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -281,6 +289,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `name` varchar(125) DEFAULT NULL,
+  `photo` varchar(150) NOT NULL,
   `email` varchar(125) DEFAULT NULL,
   `password` varchar(125) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -293,11 +302,12 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `unit_id`, `name`, `email`, `password`, `created_at`, `updated_at`, `remember_token`, `deleted_at`) VALUES
-(78, 61, 'eva24', 'eva24@gmail.com', '$2y$10$REQojrAlfK2/6MNMndC.xOPLpNvvtm/OcaVi0SoglE6YikKQhLNgu', '2018-09-19 06:56:55', '2018-09-19 06:58:11', 'IpolgEnPC618DazpDhJgXs6Te7nBs8peMHHnt0mq3kK6rZ1TOi6RwWHAVvxN', '0000-00-00 00:00:00'),
-(79, 62, 'Eva May', 'evamay@gmail.com', '$2y$10$.G2VwF85TJ4wb6JOvYRdCOW1Ntncefco4W2rUUktYE4xkCAbkkHZK', '2018-09-20 02:28:24', '2018-09-20 02:28:24', '8znPTAzn09CbS75ORSlaAcKvFzMQ3uEPD1EnYbrVIiXWjgrWNMXrVwpEBDuJ', '0000-00-00 00:00:00'),
-(80, 61, 'Mayadila', 'mayadila24@gmail.com', '$2y$10$wFJui7..spxzJy/mw6VeYO97b14nflJ6tWgi3.UlTp7qoCWSQlvki', '2018-09-26 09:30:25', '2018-09-26 09:30:25', 'peqSLJJTmWN2FSfzSIqbVgTLkHNEisHU0yp32EuimBOXQrFtJKGTFdlvCs96', NULL),
-(81, 61, 'Rafa', 'rafa24@gmail.com', '$2y$10$QZKHjaYZ5b2g.ESu3rW1Uu/CnQ65IZAYOUNpQFUbazKR2tQS7mTJ.', '2018-09-26 09:32:49', '2018-09-26 09:32:49', 'GW56HaCxOLDlMdT4FIrRNGlFN1jfoUWrV535gc3w6mYcRme2HKntyIqlEzyi', NULL);
+INSERT INTO `users` (`id`, `unit_id`, `name`, `photo`, `email`, `password`, `created_at`, `updated_at`, `remember_token`, `deleted_at`) VALUES
+(78, 61, 'eva24', '', 'eva24@gmail.com', '$2y$12$.k5Mj5aZTmOER2FmBE97te0fZSDr6VZk2D34bF/4l8NKRLvZCWL5W', '2018-09-19 06:56:55', '2018-09-19 06:58:11', 'Ilp31hNgjBzqjMkK5tcAuZ1P9LyZ3dW5UyOuDjKLBuqjB0OKj7R8cMQnwzwp', '0000-00-00 00:00:00'),
+(79, 62, 'Eva May', '', 'evamay@gmail.com', '$2y$10$.G2VwF85TJ4wb6JOvYRdCOW1Ntncefco4W2rUUktYE4xkCAbkkHZK', '2018-09-20 02:28:24', '2018-09-20 02:28:24', '8znPTAzn09CbS75ORSlaAcKvFzMQ3uEPD1EnYbrVIiXWjgrWNMXrVwpEBDuJ', '0000-00-00 00:00:00'),
+(80, 61, 'Mayadila', '', 'mayadila24@gmail.com', '$2y$10$wFJui7..spxzJy/mw6VeYO97b14nflJ6tWgi3.UlTp7qoCWSQlvki', '2018-09-26 09:30:25', '2018-09-26 09:30:25', 'peqSLJJTmWN2FSfzSIqbVgTLkHNEisHU0yp32EuimBOXQrFtJKGTFdlvCs96', NULL),
+(81, 61, 'Rafa', '', 'rafa24@gmail.com', '$2y$10$QZKHjaYZ5b2g.ESu3rW1Uu/CnQ65IZAYOUNpQFUbazKR2tQS7mTJ.', '2018-09-26 09:32:49', '2018-09-26 09:32:49', 'GW56HaCxOLDlMdT4FIrRNGlFN1jfoUWrV535gc3w6mYcRme2HKntyIqlEzyi', NULL),
+(82, 62, 'haekal', '44b18a3af099983a0150a0419d6890e2.jpg', 'haekal2@gmail.com', '$2y$10$uT6/E4vSxsXLnVn3ukvkYOFHgDkVgL0doT/Rv0naQKb1rg8qe57YG', '2018-11-29 04:22:46', '2018-11-29 04:30:50', 'Fh8EC5uBFemsxaSGOi2xh8UEsunrXK4woagc5IoIUCW6NnCkX0NEgu7QPSoO', NULL);
 
 --
 -- Indexes for dumped tables
@@ -309,6 +319,12 @@ INSERT INTO `users` (`id`, `unit_id`, `name`, `email`, `password`, `created_at`,
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `unit_id` (`unit_id`);
+
+--
+-- Indeks untuk tabel `facilities`
+--
+ALTER TABLE `facilities`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `migrations`
@@ -358,7 +374,8 @@ ALTER TABLE `role_user`
 --
 ALTER TABLE `rooms`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `area_id` (`area_id`);
+  ADD KEY `area_id` (`area_id`),
+  ADD KEY `facility_id` (`facility_id`);
 
 --
 -- Indeks untuk tabel `units`
@@ -384,6 +401,12 @@ ALTER TABLE `areas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
+-- AUTO_INCREMENT untuk tabel `facilities`
+--
+ALTER TABLE `facilities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
@@ -399,7 +422,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT untuk tabel `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `roles`
@@ -411,7 +434,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT untuk tabel `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT untuk tabel `units`
@@ -423,7 +446,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -461,7 +484,8 @@ ALTER TABLE `role_user`
 -- Ketidakleluasaan untuk tabel `rooms`
 --
 ALTER TABLE `rooms`
-  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rooms_ibfk_2` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `users`
