@@ -9,9 +9,11 @@ class Unit extends Model
 {
     use SoftDeletes;
     protected $table = 'units';
+
     protected $fillable = [
         'name',
     ];
+
     public $timestamps = false;
 
     public function units()
