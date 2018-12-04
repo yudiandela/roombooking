@@ -65,10 +65,10 @@
                      'url'=>route('rooms.update',$data->id),
                      'model'=>$data,
                      'method'=>'put',
-                     'files'=>'true'                   
+                     'files'=>'true'
                      ]) !!}
                 {!! BootForm::label('facility') !!}
-                {!!BootForm::checkboxes('facility[]',null,$allfacilities,$assignedFacilities,['multiple'=>true]) !!}
+                {!! BootForm::checkboxes('facility[]', null, $allfacilities, $assignedfacilities, ['multiple'=>true]) !!}
             @endif
             <div class="row">
                 <div class="col-md-12">
@@ -105,9 +105,9 @@
                 <div class="col-md-12">
                 <h4>Upload Photo</h4><br>
                 <input type='file' id="photo" name="photo" onchange="loadFile(event)"/>
-              
+
                 <img id="output" src="{{ empty($data) ? '#' : url('img/' . $data->photo ) }}"style="height: 70px; width: 70px; border-radius:50%;" alt="foto ruangan"  />
-              
+
                 </div>
             </div>
             {!!BootForm::submit('save',['class'=>'btn btn-info btn-fill pull-right'])!!}

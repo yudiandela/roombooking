@@ -77,8 +77,8 @@ class RoomsController extends Controller
             $data->photo = $filename;
             $data->save();
             $data = $request->toArray();
-            //    $role = Role::create($data);
-    //    $role->permissions()->sync($request->permission);
+            // $role = Role::create($data);
+            // $role->permissions()->sync($request->permission);
         }
         return redirect(route('rooms.index'))->with('alert', 'Sukses Menambahkan Data Ruangan Baru');
     }
@@ -103,7 +103,8 @@ class RoomsController extends Controller
         $data->contact_hp    = $request->contact_hp;
         $data->description   = $request->description;
         $data->is_active     = $request->is_active;
-        $data->facility_id   = $request->facility_id;
+
+        $data->facilities()->sync($request->facility);
 
         if ($request->hasFile('photo')) {
             $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
